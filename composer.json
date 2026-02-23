@@ -1,0 +1,38 @@
+{
+    "name": "tcgunel/omniship-yurtici",
+    "description": "Yurtiçi Kargo carrier for Omniship",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "tcgunel/omniship-common": "^1.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.0",
+        "phpstan/phpstan": "^2.0",
+        "php-http/mock-client": "^1.6",
+        "nyholm/psr7": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omniship\\Yurtici\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Omniship\\Yurtici\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "pestphp/pest-plugin": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
+        }
+    }
+}
