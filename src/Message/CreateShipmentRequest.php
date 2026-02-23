@@ -144,56 +144,44 @@ class CreateShipmentRequest extends AbstractSoapRequest
             $totalCount = 1;
         }
 
+        // WSDL mode requires all ShippingOrderVO fields to be present.
+        // Provide empty defaults for optional fields.
         $shippingOrder = [
             'cargoKey' => $this->getCargoKey(),
             'invoiceKey' => $this->getInvoiceKey(),
-            'receiverCustName' => $shipTo->name,
+            'receiverCustName' => $shipTo->name ?? '',
             'receiverAddress' => $this->buildAddress($shipTo),
-            'receiverPhone1' => $shipTo->phone,
-            'cityName' => $shipTo->city,
-            'townName' => $shipTo->district,
+            'receiverPhone1' => $shipTo->phone ?? '',
+            'receiverPhone2' => '',
+            'receiverPhone3' => '',
+            'cityName' => $shipTo->city ?? '',
+            'townName' => $shipTo->district ?? '',
+            'emailAddress' => $shipTo->email ?? '',
+            'taxNumber' => $shipTo->taxId ?? '',
+            'taxOfficeId' => '',
+            'custProdId' => $firstPackage?->description ?? '',
+            'desi' => $totalDesi > 0 ? $totalDesi : '',
+            'kg' => $totalKg > 0 ? $totalKg : '',
             'cargoCount' => $totalCount,
+            'waybillNo' => '',
+            'specialField1' => $this->getSpecialField1() ?? '',
+            'specialField2' => $this->getSpecialField2() ?? '',
+            'specialField3' => $this->getSpecialField3() ?? '',
+            'description' => $this->getDescription() ?? '',
+            'ttInvoiceAmount' => '',
+            'ttCollectionType' => '',
+            'ttDocumentId' => '',
+            'ttDocumentSaveType' => '',
+            'dcSelectedCredit' => '',
+            'dcCreditRule' => 0,
+            'orgGeoCode' => '',
+            'orgReceiverCustId' => '',
+            'privilegeOrder' => '',
         ];
-
-        if ($totalDesi > 0) {
-            $shippingOrder['desi'] = $totalDesi;
-        }
-
-        if ($totalKg > 0) {
-            $shippingOrder['kg'] = $totalKg;
-        }
-
-        if ($shipTo->email !== null) {
-            $shippingOrder['emailAddress'] = $shipTo->email;
-        }
-
-        if ($shipTo->taxId !== null) {
-            $shippingOrder['taxNumber'] = $shipTo->taxId;
-        }
-
-        if ($this->getDescription() !== null) {
-            $shippingOrder['description'] = $this->getDescription();
-        }
-
-        if ($this->getSpecialField1() !== null) {
-            $shippingOrder['specialField1'] = $this->getSpecialField1();
-        }
-
-        if ($this->getSpecialField2() !== null) {
-            $shippingOrder['specialField2'] = $this->getSpecialField2();
-        }
-
-        if ($this->getSpecialField3() !== null) {
-            $shippingOrder['specialField3'] = $this->getSpecialField3();
-        }
 
         if ($this->getCashOnDelivery() && $this->getCodAmount() !== null) {
             $shippingOrder['ttInvoiceAmount'] = $this->getCodAmount();
             $shippingOrder['ttCollectionType'] = $this->getCodCollectionType();
-        }
-
-        if ($firstPackage?->description !== null) {
-            $shippingOrder['custProdId'] = $firstPackage->description;
         }
 
         return [

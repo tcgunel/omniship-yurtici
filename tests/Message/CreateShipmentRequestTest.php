@@ -101,12 +101,12 @@ it('includes COD fields when cash on delivery is set', function () {
         ->and($order['ttCollectionType'])->toBe(0);
 });
 
-it('excludes COD fields when not set', function () {
+it('has empty COD defaults when not set', function () {
     $data = $this->request->getData();
     $order = $data['ShippingOrderVO'];
 
-    expect($order)->not->toHaveKey('ttInvoiceAmount')
-        ->and($order)->not->toHaveKey('ttCollectionType');
+    expect($order['ttInvoiceAmount'])->toBe('')
+        ->and($order['ttCollectionType'])->toBe('');
 });
 
 it('includes email when provided', function () {
