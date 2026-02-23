@@ -3,9 +3,20 @@
     "description": "Yurtiçi Kargo carrier for Omniship",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../omniship",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": "^8.2",
-        "tcgunel/omniship-common": "^1.0"
+        "tcgunel/omniship-common": "@dev"
     },
     "require-dev": {
         "pestphp/pest": "^3.0",
