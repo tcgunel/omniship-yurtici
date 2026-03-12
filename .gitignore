@@ -7,3 +7,6 @@ composer.lock
 /coverage/
 .env
 .DS_Store
+.tldr
+.tldrignore
+YurticiKargo-docs-example-code

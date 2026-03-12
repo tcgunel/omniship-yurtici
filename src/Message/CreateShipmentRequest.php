@@ -87,6 +87,26 @@ class CreateShipmentRequest extends AbstractSoapRequest
         return $this->setParameter('codCollectionType', $type);
     }
 
+    public function getCodDocumentId(): ?string
+    {
+        return $this->getParameter('codDocumentId');
+    }
+
+    public function setCodDocumentId(string $documentId): static
+    {
+        return $this->setParameter('codDocumentId', $documentId);
+    }
+
+    public function getCodDocumentSaveType(): ?string
+    {
+        return $this->getParameter('codDocumentSaveType');
+    }
+
+    public function setCodDocumentSaveType(string $saveType): static
+    {
+        return $this->setParameter('codDocumentSaveType', $saveType);
+    }
+
     public function getSpecialField1(): ?string
     {
         return $this->getParameter('specialField1');
@@ -159,6 +179,7 @@ class CreateShipmentRequest extends AbstractSoapRequest
             'emailAddress' => $shipTo->email ?? '',
             'taxNumber' => $shipTo->taxId ?? '',
             'taxOfficeId' => '',
+            'taxOfficeName' => '',
             'custProdId' => $firstPackage?->description ?? '',
             'desi' => $totalDesi > 0 ? $totalDesi : '',
             'kg' => $totalKg > 0 ? $totalKg : '',
@@ -182,6 +203,14 @@ class CreateShipmentRequest extends AbstractSoapRequest
         if ($this->getCashOnDelivery() && $this->getCodAmount() !== null) {
             $shippingOrder['ttInvoiceAmount'] = $this->getCodAmount();
             $shippingOrder['ttCollectionType'] = $this->getCodCollectionType();
+
+            if ($this->getCodDocumentId() !== null) {
+                $shippingOrder['ttDocumentId'] = $this->getCodDocumentId();
+            }
+
+            if ($this->getCodDocumentSaveType() !== null) {
+                $shippingOrder['ttDocumentSaveType'] = $this->getCodDocumentSaveType();
+            }
         }
 
         return [

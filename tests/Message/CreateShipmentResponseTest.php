@@ -22,7 +22,7 @@ it('parses successful response', function () {
     expect($response->isSuccessful())->toBeTrue()
         ->and($response->getTrackingNumber())->toBe('CARGO-001')
         ->and($response->getShipmentId())->toBe('98765')
-        ->and($response->getBarcode())->toBe('0')
+        ->and($response->getBarcode())->toBeNull()
         ->and($response->getLabel())->toBeNull()
         ->and($response->getTotalCharge())->toBeNull()
         ->and($response->getCurrency())->toBeNull();

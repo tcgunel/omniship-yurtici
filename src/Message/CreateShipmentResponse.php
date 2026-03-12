@@ -55,12 +55,8 @@ class CreateShipmentResponse extends AbstractResponse implements ShipmentRespons
 
     public function getBarcode(): ?string
     {
-        $detail = $this->getDetail();
-
-        if ($detail !== null && isset($detail->operationCode)) {
-            return (string) $detail->operationCode;
-        }
-
+        // Yurtiçi doesn't return a barcode in the createShipment response.
+        // The actual tracking number (docId) is only available from queryShipment.
         return null;
     }
 
